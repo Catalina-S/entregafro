@@ -2,8 +2,6 @@ document.getElementById('MedicamentosForm').addEventListener('submit', function(
     event.preventDefault();
   
     // Obtener los valores del formulario
-    const name = document.getElementById('name').value;
-    const familyName = document.getElementById('familyName').value;
     const identifierSystem = document.getElementById('identifierSystem').value;
     const identifierValue = document.getElementById('identifierValue').value;
     const medicationCode = document.getElementById('medicationCode').value;
@@ -29,7 +27,6 @@ document.getElementById('MedicamentosForm').addEventListener('submit', function(
           system: identifierSystem,
           value: identifierValue
         },
-        display: `${name} ${familyName}`
       },
       dosageInstruction: [{
         text: `Tomar ${dosage} cada ${frequency} horas durante ${duration} días`
