@@ -1,54 +1,53 @@
 document.getElementById('MedicamentosForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-  
+  event.preventDefault();
+
     // Obtener los valores del formulario
-    const identifierSystem = document.getElementById('identifierSystem').value;
-    const identifierValue = document.getElementById('identifierValue').value;
-    const medicationCode = document.getElementById('medicationCode').value;
-    const medicationDisplay = document.getElementById('medicationDisplay').value;
-    const dosage = document.getElementById('dosage').value;
-    const frequency = document.getElementById('frequency').value;
-    const duration = document.getElementById('duration').value;
-  
+  const identifierSystem = document.getElementById('identifierSystem').value;
+  const identifierValue = document.getElementById('identifierValue').value;
+  const medicationCode = document.getElementById('medicationCode').value;
+  const medicationDisplay = document.getElementById('medicationDisplay').value;
+  const dosage = document.getElementById('dosage').value;
+  const frequency = document.getElementById('frequency').value;
+  const duration = document.getElementById('duration').value;
+
     // Crear el objeto MedicationRequest
-    const medicationRequest = {
+  const medicationRequest = {
       resourceType: "MedicationRequest",
       status: "active",
       intent: "order",
       medicationCodeableConcept: {
-        coding: [{
-          system: "http://www.nlm.nih.gov/research/umls/rxnorm",
-          code: medicationCode,
-          display: medicationDisplay
-        }]
+          coding: [{
+              system: "http://www.nlm.nih.gov/research/umls/rxnorm",
+              code: medicationCode,
+              display: medicationDisplay
+          }]
       },
       subject: {
-        identifier: {
-          system: identifierSystem,
-          value: identifierValue
-        },
+          identifier: {
+              system: identifierSystem,
+              value: identifierValue
+          }
       },
       dosageInstruction: [{
-        text: `Tomar ${dosage} cada ${frequency} horas durante ${duration} días`
+          text: `Tomar ${dosage} cada ${frequency} horas durante ${duration} días`
       }]
-    };
-  
+  };
+
     // Enviar la solicitud al backend
     fetch('https://solicitudback.onrender.com', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+          'Content-Type': 'application/json'
       },
       body: JSON.stringify(medicationRequest)
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Success:', data);
-        alert('Receta creada exitosamente');
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('Error al crear la receta');
-      });
+  })
+  .then(response => response.json())
+  .then(data => {
+      console.log('Success:', data);
+      alert('Receta creada exitosamente');
+  })
+  .catch(error => {
+      console.error('Error:', error);
+      alert('Error al crear la receta');
   });
-  
+});
