@@ -29,15 +29,15 @@ document.getElementById('MedicamentosForm').addEventListener('submit', function(
         system: identifierSystem,
         value: identifierValue
       },
-      display: ${name} ${familyName}
+      display: `${name} ${familyName}`
     },
     dosageInstruction: [{
-      text: Tomar ${dosage} cada ${frequency} horas durante ${duration} días
+      text: `Tomar ${dosage} cada ${frequency} horas durante ${duration} días`
     }]
   };
 
   // Enviar la solicitud al backend
-  fetch('https://solicitudback.onrender.com/', {
+  fetch('https://meds-backend-fjhd.onrender.com/medication-request', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
