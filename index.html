@@ -1,46 +1,213 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Medicamento</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formulario de Solicitud de Medicamento</title>
+  <style>
+    /* Fuentes y fondo */
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Contenedor principal */
+    .container {
+      background-color: white;
+      padding: 1.5rem 2rem;
+      border-radius: 0.75rem;
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 720px;
+    }
+
+    h1 {
+      font-size: 1.75rem; /* texto 2xl */
+      font-weight: 700;
+      color: #1f2937; /* text-gray-800 */
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    /* Secciones del formulario */
+    fieldset {
+      background-color: #f9fafb; /* bg-gray-50 */
+      padding: 1rem 1.25rem;
+      border-radius: 0.375rem;
+      margin-bottom: 1.5rem;
+      border: none;
+    }
+
+    legend {
+      font-size: 1.25rem; /* text-xl */
+      font-weight: 600;
+      color: #374151; /* text-gray-700 */
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    label {
+      display: block;
+      font-size: 0.875rem; /* text-sm */
+      font-weight: 500;
+      color: #374151;
+      margin-bottom: 0.25rem;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    select {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid #d1d5db; /* border-gray-300 */
+      border-radius: 0.375rem;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      font-size: 0.875rem;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      margin-bottom: 1rem;
+      box-sizing: border-box;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    input[type="date"]:focus,
+    select:focus {
+      border-color: #3b82f6; /* focus:border-blue-500 */
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5); /* focus:ring-blue-500 */
+    }
+
+    /* Botón */
+    button[type="submit"] {
+      width: 100%;
+      background-color: #2563eb; /* bg-blue-600 */
+      color: white;
+      font-weight: 700;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 0.375rem;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(37, 99, 235, 0.5);
+      font-size: 1rem;
+      transition:
+        background-color 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #1d4ed8; /* hover:bg-blue-700 */
+      transform: scale(1.05);
+      box-shadow: 0 6px 8px rgba(29, 78, 216, 0.7);
+    }
+
+    button[type="submit"]:focus {
+      outline: 2px solid #3b82f6; /* focus:ring-2 focus:ring-blue-500 */
+      outline-offset: 2px;
+    }
+
+    /* Estilos para el messageBox (los que ya tenías) */
+    #messageBox {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 1rem 2rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+    #messageBox.success {
+      background-color: #d1fae5;
+      color: #065f46;
+      border: 1px solid #34d399;
+    }
+    #messageBox.error {
+      background-color: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #f87171;
+    }
+    #messageBox.show {
+      display: block;
+      opacity: 1;
+    }
+  </style>
 </head>
 <body>
-    <h1>Formulario de Medicamento</h1>
+  <div class="container">
+    <h1>Solicitud de Medicamento</h1>
     <form id="MedicamentosForm">
+      <fieldset>
+        <legend>Información del Paciente</legend>
         <label for="name">Nombre:</label>
-        <input type="text" id="name" required><br><br>
+        <input type="text" id="name" name="name" required />
 
         <label for="familyName">Apellido:</label>
-        <input type="text" id="familyName" required><br><br>
+        <input type="text" id="familyName" name="familyName" required />
 
-        <label for="identifierSystem">Tipo de documento:</label>
-        <select id="identifierSystem" required>
-            <option value="http://cedula">Cédula de ciudadanía</option>
-            <option value="http://pasaporte">Pasaporte</option>
-        </select><br><br>
+        <label for="identifierSystem">Tipo de Identificación:</label>
+        <select id="identifierSystem" name="identifierSystem" required>
+          <option value="http://example.org/fhir/sid/cedula">Cédula</option>
+          <option value="http://example.org/fhir/sid/pasaporte">Pasaporte</option>
+          <option value="http://example.org/fhir/sid/other">Otro</option>
+        </select>
 
-        <label for="identifierValue">Número de documento:</label>
-        <input type="text" id="identifierValue" required><br><br>
+        <label for="identifierValue">Número de Identificación:</label>
+        <input type="text" id="identifierValue" name="identifierValue" required />
+      </fieldset>
 
-        <label for="medicationCode">Código del medicamento:</label>
-        <input type="text" id="medicationCode" required><br><br>
+      <fieldset>
+        <legend>Información del Medicamento</legend>
+        <label for="medicationCode">Código de Medicamento (RxNorm):</label>
+        <input type="text" id="medicationCode" name="medicationCode" placeholder="1049502" required />
 
-        <label for="medicationDisplay">Nombre del medicamento:</label>
-        <input type="text" id="medicationDisplay" required><br><br>
+        <label for="medicationDisplay">Nombre de Medicamento:</label>
+        <input type="text" id="medicationDisplay" name="medicationDisplay" placeholder="Amoxicillin 250 mg capsule" required />
 
         <label for="dosage">Dosis:</label>
-        <input type="text" id="dosage" required><br><br>
+        <input type="text" id="dosage" name="dosage" placeholder="1 cápsula" required />
 
-        <label for="frequency">Frecuencia:</label>
-        <input type="text" id="frequency" required><br><br>
+        <label for="frequency">Frecuencia (horas):</label>
+        <input type="number" id="frequency" name="frequency" placeholder="8" min="1" max="24" required />
 
-        <label for="duration">Duración:</label>
-        <input type="text" id="duration" required><br><br>
+        <label for="duration">Duración (días):</label>
+        <input type="number" id="duration" name="duration" placeholder="7" min="1" required />
+      </fieldset>
 
-        <button type="submit">Enviar Solicitud</button>
+      <fieldset>
+        <legend>Verificación de Entrega</legend>
+        <label for="deliveryDate">Fecha de Entrega:</label>
+        <input type="date" id="deliveryDate" name="deliveryDate" />
+
+        <label for="deliveredBy">Entregado Por:</label>
+        <input type="text" id="deliveredBy" name="deliveredBy" placeholder="Nombre del repartidor" />
+
+        <label for="deliveryStatus">Estado de Entrega:</label>
+        <select id="deliveryStatus" name="deliveryStatus">
+          <option value="pending">Pendiente</option>
+          <option value="delivered">Entregado</option>
+          <option value="failed">Fallida</option>
+        </select>
+      </fieldset>
+
+      <button type="submit">
+        Crear Receta y Registrar Entrega
+      </button>
     </form>
+  </div>
 
-    <script src="app.js"></script>
+  <div id="messageBox" role="alert"></div>
+
+  <script src="app.js"></script>
 </body>
 </html>
